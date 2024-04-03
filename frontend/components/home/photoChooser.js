@@ -17,7 +17,6 @@ export const usePhotoPicker = () => {
             aspect: [4, 3],
             quality: 1,
             allowsMultipleSelection: true,
-            selectionLimit: 10,
         })
 
         console.log(result)

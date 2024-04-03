@@ -3,7 +3,9 @@ import {
     StyleSheet,
     View, 
     Text, 
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
+    ImageBackground
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { usePhotoPicker } from "./photoChooser"
@@ -18,11 +20,18 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>HolyShot</Text>
+            <Image
+                style={styles.titleImage}
+                source={require('../../assets/icon.png')}
+            />
 
-            <View style={styles.imgContainer}>
+            <ImageBackground
+                source={require('../../assets/mainbg.jpg')}
+                style={styles.imgContainer}
+                resizeMode="cover"
+            >
 
-            </View>
+            </ImageBackground>
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity 
@@ -49,17 +58,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#000',
       color: '#fff',
       alignItems: 'center',
-      justifyContent: 'space-evenly',
+      justifyContent: 'space-between',
     },
-
-    title: {
-        color: '#fff',
-        fontSize: 24
-    },
-
     imgContainer: {
         width: '100%',
-        height: 320,
+        height: 420,
         backgroundColor: '#fff'
     },
     buttonContainer: {
@@ -78,5 +81,11 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#000',
         fontSize: 22,
-      },
+    },
+    titleImage: {
+        width: 200, 
+        height: 60, 
+        resizeMode: 'contain',
+        marginTop: 56,
+    }
   })
