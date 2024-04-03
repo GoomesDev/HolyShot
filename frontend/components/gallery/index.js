@@ -24,7 +24,7 @@ export default function Gallery() {
     }
 
     useEffect(() => {
-        listFiles()
+        deleteAllImages()
     }, [])
 
     const listFiles = async () => {
