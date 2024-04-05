@@ -14,17 +14,19 @@ import { Dialog } from "./dialog"
 export default function Gallery() {
     const [open, setOpen] = useState(false)
     const [images, setImages] = useState([])
+    const [selectedImage, setSelectedImage] = useState(null)
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const handleOpen = () => {
+    const handleOpen = (image) => {
+        setSelectedImage(image)
         setOpen(true)
     }
 
     useEffect(() => {
-        deleteAllImages()
+        listFiles()
     }, [])
 
     const listFiles = async () => {
@@ -52,8 +54,6 @@ export default function Gallery() {
         }
     }
 
-    console.log('Imagens no diretório:', images)
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {images.map((file, index) => (
@@ -61,7 +61,7 @@ export default function Gallery() {
                  key={index} 
                  style={styles.imageContainer}
                 >
-                    <TouchableWithoutFeedback onPress={handleOpen}> 
+                    <TouchableWithoutFeedback onPress={() => handleOpen(`${FileSystem.documentDirectory}${file}`)}> 
                         <Image
                             source={{ uri: `${FileSystem.documentDirectory}${file}` }}
                             style={styles.image}
@@ -69,7 +69,7 @@ export default function Gallery() {
                     </TouchableWithoutFeedback>
                 </View>
             ))}
-            <Dialog open={open} handleClose={handleClose}/>
+            <Dialog open={open} handleClose={handleClose} image={selectedImage} listFiles={listFiles}/>
         </ScrollView>
     )
 }
