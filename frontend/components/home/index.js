@@ -9,10 +9,11 @@ import {
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { usePhotoPicker } from "./photoChooser"
+import { Ionicons } from '@expo/vector-icons'
 
 export default function Home() {
     const navigation = useNavigation()
-    const {handleChoosePhoto} = usePhotoPicker()
+    const { handleChoosePhoto , TextDialog } = usePhotoPicker()
 
     React.useLayoutEffect(() => {
         navigation.setOptions({ headerShown: false })
@@ -38,7 +39,7 @@ export default function Home() {
                     style={styles.btn} 
                     onPress={handleChoosePhoto}
                 >
-                    <Text style={styles.btnText}>Enviar</Text>
+                    <Text style={styles.btnText}>Carregar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -48,6 +49,8 @@ export default function Home() {
                     <Text style={styles.btnText}>Galeria</Text>
                 </TouchableOpacity>
             </View>
+
+            <TextDialog />
         </View>
     )
 }
@@ -74,9 +77,10 @@ const styles = StyleSheet.create({
     btn: {
         height: 56,
         backgroundColor: '#fff',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
+        flexDirection: 'row'
     },
     btnText: {
         color: '#000',
@@ -87,5 +91,5 @@ const styles = StyleSheet.create({
         height: 60, 
         resizeMode: 'contain',
         marginTop: 56,
-    }
+    },
   })

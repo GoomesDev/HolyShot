@@ -4,24 +4,25 @@ import {
     View, 
     Image, 
     StyleSheet,
-    TouchableOpacity,
     TouchableWithoutFeedback,
-    Text 
 } from "react-native"
 import * as FileSystem from 'expo-file-system'
 import { Dialog } from "./dialog"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Gallery() {
     const [open, setOpen] = useState(false)
     const [images, setImages] = useState([])
     const [selectedImage, setSelectedImage] = useState(null)
+    const [phrase, setPhrase] = useState('')
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const handleOpen = (image) => {
-        setSelectedImage(image)
+    const handleOpen = (file) => {
+        setSelectedImage(file.uri)
+        setPhrase(file.phrase)
         setOpen(true)
     }
 
@@ -31,12 +32,13 @@ export default function Gallery() {
 
     const listFiles = async () => {
         try {
-            const files = await FileSystem.readDirectoryAsync(FileSystem.documentDirectory)
-            const imageFiles = files.filter(file => file.endsWith('.jpeg') || file.endsWith('.jpg'))
-            setImages(imageFiles)
-        } catch (error) {
-            console.error('Erro ao listar arquivos:', error)
-        }
+            const existingImages = await AsyncStorage.getItem('selectedImages')
+            const imageInfoArray = existingImages ? JSON.parse(existingImages) : []
+            setImages(imageInfoArray)
+            console.log(images)
+          } catch (error) {
+            console.error('Erro ao recuperar imagens:', error)
+          }
     }
 
     const deleteAllImages = async () => {
@@ -61,15 +63,15 @@ export default function Gallery() {
                  key={index} 
                  style={styles.imageContainer}
                 >
-                    <TouchableWithoutFeedback onPress={() => handleOpen(`${FileSystem.documentDirectory}${file}`)}> 
+                    <TouchableWithoutFeedback onPress={() => handleOpen(file)}> 
                         <Image
-                            source={{ uri: `${FileSystem.documentDirectory}${file}` }}
+                            source={{ uri: file.uri }}
                             style={styles.image}
                         />
                     </TouchableWithoutFeedback>
                 </View>
             ))}
-            <Dialog open={open} handleClose={handleClose} image={selectedImage} listFiles={listFiles}/>
+            <Dialog open={open} handleClose={handleClose} image={selectedImage} listFiles={listFiles} phrase={phrase}/>
         </ScrollView>
     )
 }
