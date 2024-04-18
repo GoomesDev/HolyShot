@@ -2,10 +2,36 @@ import Home from './components/home'
 import Gallery from './components/gallery'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import * as Font from 'expo-font'
+import React, { useState , useEffect } from 'react'
+import AppLoading from 'expo-app-loading'
 
 const Stack = createStackNavigator()
 
+const loadFonts = async () => {
+  await Font.loadAsync({
+    'bebas': require('./assets/BebasNeue-Regular.otf'),
+    'panorama': require('./assets/The Panorama.otf'),
+  })
+}
+
 export default function App() {
+
+  const [fontsLoaded, setFontsLoaded] = useState(false)
+
+  useEffect(() => {
+    const loadApp = async () => {
+      await loadFonts()
+      setFontsLoaded(true)
+    }
+
+    loadApp()
+  }, [])
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -20,7 +46,8 @@ export default function App() {
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontFamily: 'bebas',
+              fontSize: 26
             },
             cardStyleInterpolator: ({ current, layouts }) => {
               return {

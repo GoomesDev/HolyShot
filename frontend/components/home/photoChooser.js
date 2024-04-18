@@ -126,14 +126,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 1)',
     },
     inputContainer: {
         backgroundColor: '#fff',
-        padding: 10,
+        padding: 14,
         width: '96%',
         borderWidth: 1,
-        fontSize: 20
+        fontSize: 20,
+        borderRadius: 8,
     },
     btn: {
         width: '96%',
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: '#000',
-        fontSize: 22,
+        fontSize: 26,
+        fontFamily: 'bebas'
     },
 })

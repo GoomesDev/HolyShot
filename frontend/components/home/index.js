@@ -9,7 +9,6 @@ import {
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { usePhotoPicker } from "./photoChooser"
-import { Ionicons } from '@expo/vector-icons'
 
 export default function Home() {
     const navigation = useNavigation()
@@ -84,7 +83,8 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: '#000',
-        fontSize: 22,
+        fontSize: 26,
+        fontFamily: 'bebas'
     },
     titleImage: {
         width: 200, 

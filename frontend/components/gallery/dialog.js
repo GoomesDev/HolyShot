@@ -123,6 +123,6 @@ const styles = StyleSheet.create({
     phraseStyle: {
         fontSize: 16,
         marginTop: 20,
-        fontStyle: 'italic'
+        fontStyle: 'italic',
     }
 })
